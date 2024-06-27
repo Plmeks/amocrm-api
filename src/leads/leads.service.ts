@@ -8,11 +8,12 @@ import { HttpService } from '@nestjs/axios';
 import { AxiosError } from 'axios';
 import { UsersService } from 'src/users/users.service';
 import { ContactsService } from 'src/contacts/contacts.service';
-import { getHeaders } from 'src/utils/api';
+import { getApiUri, getHeaders } from 'src/utils/api';
 
 @Injectable()
 export class LeadsService {
   private readonly logger = new Logger(LeadsService.name);
+  private API_URI = getApiUri();
 
   constructor(
     private readonly httpService: HttpService,
@@ -49,12 +50,10 @@ export class LeadsService {
   }
 
   async getLeads(query: string): Promise<any> {
-    const apiUrl = process.env.AMOCRM_API_URL;
-
     const [leadsResult, pipelinesStatusesResult, usersResult, contactsResult] =
       await Promise.all([
         this.fetchData(
-          `${apiUrl}/v4/leads?limit=250&with=contacts${
+          `${this.API_URI}/leads?limit=250&with=contacts${
             query ? `&query=${query}` : ''
           }`,
         ),
@@ -89,7 +88,7 @@ export class LeadsService {
   }
 
   async getPipelineStatuses(): Promise<any> {
-    const apiUrl = `${process.env.AMOCRM_API_URL}/v4/leads/pipelines`;
+    const apiUrl = `${this.API_URI}/leads/pipelines`;
     const data = await this.fetchData(apiUrl);
 
     return data._embedded?.pipelines?.[0]?._embedded?.statuses || [];

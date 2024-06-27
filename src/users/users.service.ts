@@ -6,17 +6,18 @@ import {
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
-import { getHeaders } from 'src/utils/api';
+import { getApiUri, getHeaders } from 'src/utils/api';
 
 @Injectable()
 export class UsersService {
   private readonly logger = new Logger(UsersService.name);
+  private readonly API_URI = getApiUri();
 
   constructor(private readonly httpService: HttpService) {}
 
   async getUsers(): Promise<any> {
     const headers = getHeaders();
-    const apiUrl = `${process.env.AMOCRM_API_URL}/v4/users`;
+    const apiUrl = `${this.API_URI}/users`;
 
     try {
       const { data } = await firstValueFrom(
