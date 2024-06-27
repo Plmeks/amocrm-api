@@ -21,7 +21,7 @@ import {
 @Injectable()
 export class LeadsService {
   private readonly logger = new Logger(LeadsService.name);
-  private API_URI = getApiUri();
+  private API_URI = `${getApiUri()}/leads`;
 
   constructor(
     private readonly httpService: HttpService,
@@ -61,7 +61,7 @@ export class LeadsService {
     const [leadsResult, pipelinesStatusesResult, usersResult, contactsResult] =
       await Promise.all([
         this.fetchData<LeadsResponse>(
-          `${this.API_URI}/leads?limit=250&with=contacts${
+          `${this.API_URI}?limit=250&with=contacts${
             query ? `&query=${query}` : ''
           }`,
         ),
@@ -100,8 +100,9 @@ export class LeadsService {
   }
 
   async getPipelineStatuses(): Promise<PipelineStatus[]> {
-    const apiUrl = `${this.API_URI}/leads/pipelines`;
-    const data = await this.fetchData<PipelineResponse>(apiUrl);
+    const data = await this.fetchData<PipelineResponse>(
+      `${this.API_URI}/pipelines`,
+    );
 
     return data._embedded?.pipelines?.[0]?._embedded?.statuses || [];
   }

@@ -12,17 +12,16 @@ import { User, UsersResponse } from './users.interface';
 @Injectable()
 export class UsersService {
   private readonly logger = new Logger(UsersService.name);
-  private readonly API_URI = getApiUri();
+  private readonly API_URI = `${getApiUri()}/users`;
 
   constructor(private readonly httpService: HttpService) {}
 
   async getUsers(): Promise<User[]> {
     const headers = getHeaders();
-    const apiUrl = `${this.API_URI}/users`;
 
     try {
       const { data } = await firstValueFrom(
-        this.httpService.get<UsersResponse>(apiUrl, { headers }).pipe(
+        this.httpService.get<UsersResponse>(this.API_URI, { headers }).pipe(
           catchError((error: AxiosError) => {
             this.logger.error(error.response?.data || error.message);
             throw new InternalServerErrorException(
@@ -34,7 +33,7 @@ export class UsersService {
       return data._embedded?.users || [];
     } catch (error) {
       this.logger.error(
-        `Failed to fetch users from ${apiUrl}: ${error.message}`,
+        `Failed to fetch users from ${this.API_URI}: ${error.message}`,
       );
       throw new InternalServerErrorException('Failed to fetch users from API');
     }
