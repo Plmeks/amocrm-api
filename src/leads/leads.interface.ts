@@ -76,3 +76,50 @@ export interface PipelineStatus {
   account_id: number;
   _links: StatusLinks;
 }
+
+// interfaces/pipeline.interface.ts
+export interface PipelineResponse {
+  _total_items: number;
+  _links: SelfLink;
+  _embedded: EmbeddedPipelines;
+}
+
+interface SelfLink {
+  self: Link;
+}
+
+interface Link {
+  href: string;
+}
+
+interface EmbeddedPipelines {
+  pipelines: Pipeline[];
+}
+
+interface Pipeline {
+  id: number;
+  name: string;
+  sort: number;
+  is_main: boolean;
+  is_unsorted_on: boolean;
+  is_archive: boolean;
+  account_id: number;
+  _links: SelfLink;
+  _embedded: EmbeddedStatuses;
+}
+
+interface EmbeddedStatuses {
+  statuses: Status[];
+}
+
+interface Status {
+  id: number;
+  name: string;
+  sort: number;
+  is_editable: boolean;
+  pipeline_id: number;
+  color: string;
+  type: number;
+  account_id: number;
+  _links: SelfLink;
+}

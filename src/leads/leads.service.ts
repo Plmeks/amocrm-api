@@ -11,7 +11,12 @@ import { ContactsService } from 'src/contacts/contacts.service';
 import { getApiUri, getHeaders } from 'src/utils/api';
 import { Contact } from 'src/contacts/contacts.interface';
 import { User } from 'src/users/users.interface';
-import { Lead, LeadsResponse, PipelineStatus } from './leads.interface';
+import {
+  Lead,
+  LeadsResponse,
+  PipelineStatus,
+  PipelineResponse,
+} from './leads.interface';
 
 @Injectable()
 export class LeadsService {
@@ -96,7 +101,7 @@ export class LeadsService {
 
   async getPipelineStatuses(): Promise<PipelineStatus[]> {
     const apiUrl = `${this.API_URI}/leads/pipelines`;
-    const data = await this.fetchData<any>(apiUrl);
+    const data = await this.fetchData<PipelineResponse>(apiUrl);
 
     return data._embedded?.pipelines?.[0]?._embedded?.statuses || [];
   }
