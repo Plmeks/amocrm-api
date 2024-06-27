@@ -8,6 +8,7 @@ import { HttpService } from '@nestjs/axios';
 import { AxiosError } from 'axios';
 import { UsersService } from 'src/users/users.service';
 import { ContactsService } from 'src/contacts/contacts.service';
+import { getHeaders } from 'src/utils/api';
 
 @Injectable()
 export class LeadsService {
@@ -19,12 +20,6 @@ export class LeadsService {
     private readonly contactsService: ContactsService,
   ) {}
 
-  private getHeaders() {
-    return {
-      Authorization: `Bearer ${process.env.AMOCRM_ACCESS_TOKEN}`,
-    };
-  }
-
   private findContactsCustomField(contacts: any, code: string) {
     const customField = contacts?.custom_fields_values?.find(
       (field) => field.field_code === code,
@@ -33,7 +28,7 @@ export class LeadsService {
   }
 
   private async fetchData(url: string) {
-    const headers = this.getHeaders();
+    const headers = getHeaders();
 
     try {
       const { data } = await firstValueFrom(

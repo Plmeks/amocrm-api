@@ -6,6 +6,7 @@ import {
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
+import { getHeaders } from 'src/utils/api';
 
 @Injectable()
 export class ContactsService {
@@ -13,14 +14,8 @@ export class ContactsService {
 
   constructor(private readonly httpService: HttpService) {}
 
-  private getHeaders() {
-    return {
-      Authorization: `Bearer ${process.env.AMOCRM_ACCESS_TOKEN}`,
-    };
-  }
-
   async getContacts(): Promise<any> {
-    const headers = this.getHeaders();
+    const headers = getHeaders();
     const apiUrl = `${process.env.AMOCRM_API_URL}/v4/contacts`;
 
     try {
