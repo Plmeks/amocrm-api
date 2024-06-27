@@ -74,7 +74,6 @@ export class LeadsService {
           (contact: Contact) => contact.id === leadContact?.id,
         ) || ({} as Contact);
 
-      console.log({ contactData });
       return {
         ...lead,
         contact: {

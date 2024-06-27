@@ -59,7 +59,7 @@ export interface LeadsResponse {
   };
 }
 
-export interface StatusLinks {
+interface StatusLinks {
   self: {
     href: string;
   };

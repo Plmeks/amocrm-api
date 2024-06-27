@@ -1,4 +1,4 @@
-export interface Rights {
+interface Rights {
   leads: Permission;
   contacts: Permission;
   companies: Permission;
@@ -14,7 +14,7 @@ export interface Rights {
   is_active: boolean;
 }
 
-export interface Permission {
+interface Permission {
   view: string;
   edit: string;
   add: string;
@@ -22,12 +22,12 @@ export interface Permission {
   export: string;
 }
 
-export interface TaskPermission {
+interface TaskPermission {
   edit: string;
   delete: string;
 }
 
-export interface StatusRight {
+interface StatusRight {
   entity_type: string;
   pipeline_id: number;
   status_id: number;
@@ -38,11 +38,11 @@ export interface StatusRight {
   };
 }
 
-export interface Link {
+interface Link {
   href: string;
 }
 
-export interface Links {
+interface Links {
   self: Link;
 }
 

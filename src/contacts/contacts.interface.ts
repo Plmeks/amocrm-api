@@ -1,19 +1,19 @@
-export enum FieldCode {
+enum FieldCode {
   PHONE = 'PHONE',
   EMAIL = 'EMAIL',
 }
 
-export enum EnumCode {
+enum EnumCode {
   WORK = 'WORK',
 }
 
-export interface CustomFieldValue {
+interface CustomFieldValue {
   value: string;
   enum_id: number;
   enum_code: EnumCode;
 }
 
-export interface CustomField {
+interface CustomField {
   field_id: number;
   field_name: string;
   field_code: FieldCode;
@@ -21,20 +21,20 @@ export interface CustomField {
   values: CustomFieldValue[];
 }
 
-export interface Link {
+interface Link {
   href: string;
 }
 
-export interface Links {
+interface Links {
   self: Link;
 }
 
-export interface EmbeddedCompany {
+interface EmbeddedCompany {
   id: number;
   _links: Links;
 }
 
-export interface Embedded {
+interface Embedded {
   companies: EmbeddedCompany[];
 }
 
