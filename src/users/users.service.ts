@@ -7,6 +7,7 @@ import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
 import { getApiUri, getHeaders } from 'src/utils/api';
+import { User, UsersResponse } from './users.interface';
 
 @Injectable()
 export class UsersService {
@@ -15,13 +16,13 @@ export class UsersService {
 
   constructor(private readonly httpService: HttpService) {}
 
-  async getUsers(): Promise<any> {
+  async getUsers(): Promise<User[]> {
     const headers = getHeaders();
     const apiUrl = `${this.API_URI}/users`;
 
     try {
       const { data } = await firstValueFrom(
-        this.httpService.get(apiUrl, { headers }).pipe(
+        this.httpService.get<UsersResponse>(apiUrl, { headers }).pipe(
           catchError((error: AxiosError) => {
             this.logger.error(error.response?.data || error.message);
             throw new InternalServerErrorException(

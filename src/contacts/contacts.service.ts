@@ -7,6 +7,7 @@ import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
 import { getApiUri, getHeaders } from 'src/utils/api';
+import { Contact, ContactsResponse } from './contacts.interface';
 
 @Injectable()
 export class ContactsService {
@@ -15,13 +16,13 @@ export class ContactsService {
 
   constructor(private readonly httpService: HttpService) {}
 
-  async getContacts(): Promise<any> {
+  async getContacts(): Promise<Contact[]> {
     const headers = getHeaders();
     const apiUrl = `${this.API_URI}/contacts`;
 
     try {
       const { data } = await firstValueFrom(
-        this.httpService.get(apiUrl, { headers }).pipe(
+        this.httpService.get<ContactsResponse>(apiUrl, { headers }).pipe(
           catchError((error: AxiosError) => {
             this.logger.error(error.response?.data || error.message);
             throw new InternalServerErrorException(
