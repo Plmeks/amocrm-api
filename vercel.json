@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "env": {
+    "AMOCRM_ACCESS_TOKEN": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjdhZjlmNDJlM2M4MmEyZjBiOTY2NjYzNTQyNGUzY2VhYTk4YTk0M2YxMDVlYmFiYmM2ZDE1YzhiMjFiMTZmZTU2Mzk4ODIwZmI3NTkzMTE1In0.eyJhdWQiOiJjNThjMjhmZS02YjBlLTRhNzYtYjA4Yy00ZWNkMzdkMDgwNTIiLCJqdGkiOiI3YWY5ZjQyZTNjODJhMmYwYjk2NjY2MzU0MjRlM2NlYWE5OGE5NDNmMTA1ZWJhYmJjNmQxNWM4YjIxYjE2ZmU1NjM5ODgyMGZiNzU5MzExNSIsImlhdCI6MTcxOTQwNjU2MCwibmJmIjoxNzE5NDA2NTYwLCJleHAiOjE3MjUxNDg4MDAsInN1YiI6IjExMjA1MTY2IiwiZ3JhbnRfdHlwZSI6IiIsImFjY291bnRfaWQiOjMxODIwMDU4LCJiYXNlX2RvbWFpbiI6ImFtb2NybS5ydSIsInZlcnNpb24iOjIsInNjb3BlcyI6WyJjcm0iLCJmaWxlcyIsImZpbGVzX2RlbGV0ZSIsIm5vdGlmaWNhdGlvbnMiLCJwdXNoX25vdGlmaWNhdGlvbnMiXSwiaGFzaF91dWlkIjoiNmUzNjVhMGUtM2E4Ni00Zjg3LWIxZjUtYTI2NWE4NzgyNDM0In0.Cr8Ki-SxPxmiEhPZQXwoJGDGODiv7lYFskV15UIOSsDGLTKdZh58K7B-YUYVxLIfsG6vrTnrZTua5aHYG8YGm7o4k0v52OkYT8sHGG6eE0FcNsZnrOM85fR5RyDlSiO2blCo0pyOyx_Z8ylfHvhuhVaQcE0ZW0GrMRGkMzWBdyctcGKfnj-VQn-I-J4jXH2D_OeCMoODCKIxH4WCTT3lDJq5hMtAI-296LaEnCmcCmcZz2ZapdC0nbX3tE0mDnmM-CQr1A2tVvm14az0-iTj7M_n3JVzsRCQhSXZhb-bKIa-VmdpBcTIXuo4e1DtlYfFLkp-HxQgOmAFBtpgOFl8WQ",
+    "AMOCRM_API_URL": "https://mpliusch.amocrm.ru/api"
+  },
+  "builds": [
+    {
+      "src": "src/main.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/main.ts",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    }
+  ]
+}
